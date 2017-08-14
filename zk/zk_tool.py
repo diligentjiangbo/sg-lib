@@ -21,8 +21,8 @@ SEPARATOR = "-"
 DEFAULT_ORGID = "8888"
 
 #根据服务号和场景号构造zk节点全路径
-def createNodeName(serviceId, sceneId):
-  path = ROUTE_PATH + PATH_SEPARATOR + DEFAULT_ORGID + PATH_SEPARATOR
+def createNodeName(serviceId, sceneId, rootPath):
+  path = rootPath + PATH_SEPARATOR + DEFAULT_ORGID + PATH_SEPARATOR
   path = path + serviceId[:1] + PATH_SEPARATOR
   path = path + serviceId + SEPARATOR + sceneId
   return path
@@ -43,8 +43,8 @@ def createZkNode(zk, nodeName, value):
     zk.create(nodeName, value)
     
 #新增一个节点
-def add_route(zk, serviceId, sceneId, dfaList):
-  zk_path = createNodeName(serviceId, sceneId)
+def add_route(zk, serviceId, sceneId, dfaList, rootPath):
+  zk_path = createNodeName(serviceId, sceneId, rootPath)
   if zk.exists(zk_path):
     dfaSet = set(dfaList)
     old_value = zk.get(zk_path)[0].decode("ascii")
@@ -59,8 +59,8 @@ def add_route(zk, serviceId, sceneId, dfaList):
     createZkNode(zk, zk_path, new_value.encode("ascii"))
     
 #删除一个节点
-def delete_route(zk, serviceId, sceneId, dfaList):
-  zk_path = createNodeName(serviceId, sceneId)
+def delete_route(zk, serviceId, sceneId, dfaList, rootPath):
+  zk_path = createNodeName(serviceId, sceneId, rootPath)
   if zk.exists(zk_path):
     old_value = zk.get(zk_path)[0].decode("ascii")
     old_dfa_set = set(re.sub('[\[\]]', '', old_value).split(","))

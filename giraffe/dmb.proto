@@ -1,0 +1,196 @@
+syntax = "proto3";
+// for c++ namespace
+package dmb_proto;
+
+// for java
+option java_package = "cn.onebank.dmb.common.protobuf";
+option java_outer_classname = "DmbProto";
+
+message AuthRequest {
+  string userId       = 1;
+  string userPassword = 2;
+  string systemId     = 3;
+  string instanceId   = 4;
+}
+
+message AuthResponse {
+  string retCode = 1;
+  string retMsg  = 2;
+}
+
+message Service {
+  string serviceId = 1;
+  string sceneId   = 2;
+}
+
+message ConfigServiceRequest {
+  string operation          = 1;
+  string systemId           = 2;
+  string instanceId         = 3;
+  repeated Service services = 4;
+}
+
+message ConfigServiceResult {
+  Service service = 1;
+  string retCode  = 2;
+  string retMsg   = 3;
+}
+
+message ConfigServiceResponse {
+  string operation                            = 1;
+  string systemId                             = 2;
+  string instanceId                           = 3;
+  repeated ConfigServiceResult serviceResults = 4;
+}
+
+message SystemHeader {
+  string serviceId                = 1;  // 服务代码
+  string sceneId                  = 2;  // 服务场景
+  string consumerSystemId         = 3;  // 服务调用方系统编号
+  string dfa                      = 4;  // 服务消费者DFA编号
+  string transactionDateTime      = 5;  // 交易日期时间
+  string consumerSeqNo            = 6;  // 服务调用方系统流水号
+  string channelType              = 7;  // 渠道类型
+  string channelDetail            = 8;  // 渠道细分
+  string terminalId               = 9;  // 终端号
+  string consumerServerId         = 10;  // 服务调用方服务器标识
+  string bizSeqNo                 = 11;  // 服务原发起方系统流水号
+  string originalConsumerId       = 12;  // 服务原发起方系统编号
+  string originalTerminalId       = 13;  // 服务原发起方终端号
+  string originalConsumerServerId = 14;  // 服务原发起方服务器标识
+  string userLang                 = 15;  // 用户语言
+  string version                  = 16;  // 版本号
+  string multiLegalPersonOrgId    = 17;  // 多法人机构号
+  string targetAddress            = 18;  // 目的地
+  uint64 waitTime                 = 19;  // 存活时间
+  string productId                = 20;  // 产品Id
+  string acctNo                   = 21;  // 账号
+  string acctType                 = 22;  // 账号类型
+  string subAcctType              = 23;  // 子账号类型
+  string responseAddress          = 24;  // 响应地址
+  int32 packageType               = 25;  // 包类型
+  string customInfo               = 26;  // 客户端信息
+  int32 bodyType                  = 27;  // 报文类型
+  string messageId                = 28;  // 消息标志码
+  bool compressFlag               = 29;  // 压缩标志
+  bool encryptFlag                = 30;  // 加密标志
+  string transactionReturnStatus  = 31;  // 交易返回状态
+  string targetDfa                = 32;  // 目标DFA
+  string targetOrgId              = 33;  // 目标法人号
+}
+
+message AnnotationInfo {
+  string key   = 1;  // 代码
+  string value = 2;  // 值
+}
+
+message TraceHeader {
+  string spanId                           = 1;  // 扩展标识
+  uint64 sendTimestamp                    = 2;  // 发送时间
+  string sendIp                           = 3;  // 发送IP
+  uint32 sendPort                         = 4;  // 发送端口
+  int64 recvTimestamp                     = 5;  // 接收时间
+  string recvIp                           = 6;  // 接收IP
+  uint32 recvPort                         = 7;  // 接收端口
+  int64 replySendTimestamp                = 8;  // 发送应答时间
+  string replySendIp                      = 9;  // 发送应答IP
+  uint32 replySendPort                    = 10;  // 发送应答端口
+  int64 replyRecvTimestamp                = 11;  // 应答接收时间
+  string replyRecvIp                      = 12;  // 应答接收IP
+  uint32 replyRecvPort                    = 13;  // 应答接收端口
+  int64 cPortRecvTimestamp                = 14;  // C端接收时间戳
+  int64 pPortSendTimestamp                = 15;  // P端发送时间戳
+  int64 pPortRecvTimestamp                = 16;  // P端响应时间戳
+  int64 cPortSendTimestamp                = 17;  // C端响应时间戳
+  repeated AnnotationInfo annotationInfos = 18;  // 注释信息
+}
+
+// 录入柜员信息
+message InputTellerInfo {
+  string inputTellerId    = 1;  // 录入柜员标识
+  string inputOrgId       = 2;  // 录入机构代码
+  string inputTellerLevel = 3;  // 录入柜员级别
+  string inputTellerType  = 4;  // 录入柜员类别
+  string authFlag         = 5;  // 授权标识
+}
+
+// 授权柜员信息
+message AuthTellerInfo {
+  string authTellerId    = 1;  // 授权柜员标识
+  string authOrgId       = 2;  // 授权机构代码
+  string authTellerPwd   = 3;  // 授权柜员密码
+  string authTellerLevel = 4;  // 授权柜员级别
+  string authTellerType  = 5;  // 授权柜员类别
+}
+
+// 交易返回代码
+message RetInfo {
+  string returnCode = 1;  // 交易返回代码
+  string returnMsg  = 2;  // 交易返回信息
+}
+
+message AppHeader {
+  string tellerId                           = 1;  // 柜员号
+  string orgId                              = 2;  // 机构号
+  string tellerPwd                          = 3;  // 柜员密码
+  string tellerLevel                        = 4;  // 柜员级别
+  string tellerType                         = 5;  // 柜员类别
+  string approveFlag                        = 6;  // 复核标识
+  repeated InputTellerInfo inputTellerInfos = 7;  // 录入柜员数组
+  repeated AuthTellerInfo authTellerInfos   = 8;  // 授权柜员数组
+  repeated RetInfo retInfos                 = 9;  // 交易返回代码数组
+}
+
+message ExtendHeader {
+  uint32 length = 1;  // 长度
+  bytes content = 2;  // 内容
+}
+
+message Message {
+  SystemHeader sysHead    = 1;
+  TraceHeader traceHead   = 2;
+  AppHeader appHead       = 3;
+  ExtendHeader extendHead = 4;
+  bytes body              = 5;
+}
+
+message Request {
+  Message msg = 1;
+}
+
+message Response {
+  string retCode   = 1;
+  string retMsg    = 2;
+  Message msg      = 3;
+}
+
+message AckRequest {
+  string msgId       = 1;
+  string serviceCode = 2;
+  string sceneCode   = 3;
+  string clientId    = 4;
+}
+
+message AckResponse {
+  string msgId       = 1;
+  string serviceCode = 2;
+  string sceneCode   = 3;
+  string retCode     = 4;
+  string retMsg      = 5;
+  string clientId    = 6;
+}
+
+message MgrRequest {
+  uint32 subcmd     = 1;
+  string appKey     = 2;
+  string commandStr = 3;
+}
+
+message MgrResponse {
+  uint32 subcmd  = 1;
+  string appKey  = 2;
+  string retCode = 3;
+  string retMsg  = 4;
+  string rspStr  = 5;
+}
+

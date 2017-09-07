@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 class CreateTopicRequestHeader:
 
   def __init__(self, topic, readQueueNums, writeQueueNums):

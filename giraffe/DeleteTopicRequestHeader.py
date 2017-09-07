@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 class DeleteTopicRequestHeader:
 
   def __init__(self, topic):

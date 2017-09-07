@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
 import json
@@ -29,8 +28,8 @@ class RemotingCommand:
     # 判断是否含有消息体
     if body:
       length = length + len(body)
-    print "headerLength:" + str(headerLength)
-    print "length:" + str(length)
+    # print "headerLength:" + str(headerLength)
+    # print "length:" + str(length)
     byteBuffer = bytearray(4 + length)
     #写入4字节的整个消息length
     byteBuffer[0] = (length >> 24) & 0xFF
@@ -58,6 +57,5 @@ class RemotingCommand:
 if __name__ == '__main__':
   requestHeader = SendMessageRequestHeader("20101", "test", {})
   remotingCommand = RemotingCommand(10, requestHeader)
-  s = remotingCommand.encodeHeader("hello world")
-  # for b in s:
-  #   print(b)
+  #s = remotingCommand.encodeHeader("hello world")
+  print remotingCommand.headerEncode()

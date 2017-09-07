@@ -7,9 +7,13 @@ file\service.py
 file\tab_decode.py
 giraffe\CreateTopicRequestHeader.py
 giraffe\DeleteTopicRequestHeader.py
+giraffe\GiraffeClient.py
+giraffe\HeartbeatRequestHeader.py
+giraffe\MixAll.py
 giraffe\RemotingCommand.py
+giraffe\SendMessageRequestHeader.py
 giraffe\__init__.py
+giraffe\dmb_pb2.py
 giraffe\giraffe_tcp_tool.py
-giraffe\giraffe_tool.py
 zk\__init__.py
 zk\zk_tool.py

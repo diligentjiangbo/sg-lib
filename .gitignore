@@ -5,3 +5,10 @@
 # IntelliJ IDEA
 /.idea/
 *.iml
+
+# Django
+*__pycache__*
+
+# PyFrame
+/AutoOneBank/Scripts
+/AutoOneBank/data

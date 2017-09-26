@@ -6,9 +6,6 @@
 /.idea/
 *.iml
 
-# Django
-*__pycache__*
+# python
+*.pyc
 
-# PyFrame
-/AutoOneBank/Scripts
-/AutoOneBank/data

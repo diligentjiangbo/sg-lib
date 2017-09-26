@@ -3,15 +3,8 @@
 
 import sys
 import os
-import imp
-
 #自定义库
 from file.tab_decode import decode
-from file.service import Service
-
-#字符串编码统一为utf8
-imp.reload(sys)
-#sys.setdefaultencoding('utf8')
 
 #文件头部标志
 HEADER_START = "HEADER_START"
@@ -114,7 +107,6 @@ def analyze(file):
       if head_status:
         retDict.setdefault('version', line)
       else:
-        print(line)
         service = decode(line)
         #service = file.json_decode.decode(line)
         if not service:

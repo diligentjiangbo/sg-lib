@@ -1,15 +1,9 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-import sys
-import os
 import re
-import imp
 
 from kazoo.client import KazooClient
-
-#字符串编码统一为utf8
-imp.reload(sys)
 
 #路径分隔符
 PATH_SEPARATOR = "/"
@@ -29,8 +23,6 @@ def createNodeName(serviceId, sceneId, rootPath):
   
 #递归的创建一个zk节点
 def createZkNode(zk, nodeName, value):
-  print(value)
-  print(nodeName)
   index = nodeName.rfind(PATH_SEPARATOR)
   if index == -1:
     zk.create(PATH_SEPARATOR + nodeName, value)
@@ -40,7 +32,10 @@ def createZkNode(zk, nodeName, value):
     parentPath = nodeName[:index]
     if not zk.exists(parentPath):
       createZkNode(zk, parentPath, "no data".encode("ascii"))
-    zk.create(nodeName, value)
+    if zk.exists(nodeName):
+      zk.set(nodeName, value)
+    else:
+      zk.create(nodeName, value)
     
 #新增一个节点
 def add_route(zk, serviceId, sceneId, dfaList, rootPath):
@@ -73,6 +68,7 @@ def delete_route(zk, serviceId, sceneId, dfaList, rootPath):
       zk.set(zk_path, new_value.encode("ascii"))
     else:
       zk.delete(zk_path, recursive=True)
+
       
 if __name__ == '__main__':
   zk_host = "localhost:2181"
